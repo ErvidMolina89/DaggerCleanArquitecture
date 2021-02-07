@@ -4,9 +4,11 @@ import com.example.mobile.exampleimplementation.data_access.api.api.ApiMovies
 import com.example.mobile.exampleimplementation.data_access.api.repo_implement.ApiMoviesImplemet
 import com.example.mobile.exampleimplementation.data_access.db_local.DbMovies
 import com.example.mobile.exampleimplementation.data_access.preferences.PreferenceMovies
-import com.example.mobile.exampleimplementation.data_access.repositories.RepoMovies
-import com.example.mobile.exampleimplementation.data_access.repositories.apiMovies
-import com.example.mobile.exampleimplementation.di.scope.ApplicationScope
+import com.example.mobile.exampleimplementation.data_access.repositories.*
+import com.example.mobile.exampleimplementation.presenter.movies.ViewModelMovie
+import com.example.mobile.exampleimplementation.use_case.movies.GetApiListMoviesUseCase
+import com.example.mobile.exampleimplementation.use_case.movies.GetDbLocalListMoviesUseCase
+import com.example.mobile.exampleimplementation.use_case.movies.GetPreferenceListMoviesUseCase
 import dagger.Module
 import dagger.Provides
 
@@ -15,41 +17,37 @@ import dagger.Provides
 )
 class MoviesModule {
     // DataSources
-    @ApplicationScope
     @Provides
-    fun provideApiRetrofit(apiMovies: ApiMovies) = ApiMoviesImplemet(apiMovies)
+    fun provideApiRetrofit(apiMovies: ApiMovies): ApiSourceMovies = ApiMoviesImplemet(apiMovies)
 
-    @ApplicationScope
     @Provides
-    fun provideDbMovies() = DbMovies()
-    @ApplicationScope
+    fun provideDbMovies() : DBSourceMovies = DbMovies()
     @Provides
-    fun providePreferenceMovies() = PreferenceMovies()
+    fun providePreferenceMovies() : PreferenceSourceMovies = PreferenceMovies()
+
 
     // Repositorio
-    @ApplicationScope
     @Provides
-    fun provideRepoMovies(apiMovies: apiMovies,
-                          dbMovies: DbMovies,
-                          preferenceMovies: PreferenceMovies) = RepoMovies(apiMovies, dbMovies, preferenceMovies)
+    fun provideRepoMovies(
+        apiMovies: ApiSourceMovies,
+        dbMovies: DBSourceMovies,
+        preferenceMovies: PreferenceSourceMovies
+    ) : RepoMovies = RepoMoviesImpl(apiMovies, dbMovies, preferenceMovies)
 
-//    // Case Uses
-//    @ApplicationScope
-//    @Provides
-//    fun provideApiListMovies(repoMovies: RepoMovies) = GetApiListMoviesUseCase(repoMovies)
-//
-//    @ApplicationScope
-//    @Provides
-//    fun provideDbLocalListMovies(repoMovies: RepoMovies) = GetDbLocalListMoviesUseCase(repoMovies)
-//
-//    @ApplicationScope
-//    @Provides
-//    fun providePreferenceListMovies(repoMovies: RepoMovies) = GetPreferenceListMoviesUseCase(repoMovies)
-//
-//    // ViewModel o Presenter
-//
-//    @ApplicationScope
-//    @Provides
-//    fun provideViewModelMovies(getApiListMoviesUseCase: GetApiListMoviesUseCase) = ViewModelMovie(getApiListMoviesUseCase)
+
+    // Case Uses
+    @Provides
+    fun provideApiListMovies(repoMovies: RepoMovies) = GetApiListMoviesUseCase(repoMovies)
+
+    @Provides
+    fun provideDbLocalListMovies(repoMovies: RepoMovies) = GetDbLocalListMoviesUseCase(repoMovies)
+
+    @Provides
+    fun providePreferenceListMovies(repoMovies: RepoMovies) = GetPreferenceListMoviesUseCase(repoMovies)
+
+    // ViewModel o Presenter
+
+    @Provides
+    fun provideViewModelMovies(getApiListMoviesUseCase: GetApiListMoviesUseCase) = ViewModelMovie(getApiListMoviesUseCase)
 
 }

@@ -41,8 +41,6 @@ P
  app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
 ˆ
 Xapp/src/main/java/com/example/mobile/exampleimplementation/ui/activities/MainActivity.kt,6\b\6ba2bbd5b6f8652e24e0b78eb64d7f23ebf171d2
-‡
-Wapp/src/main/java/com/example/mobile/exampleimplementation/data_access/api/ApiMovies.kt,2\b\2bc6aacbdb7e0d23517f8e4f16026e457294a6f0
 ‹
 [app/src/main/java/com/example/mobile/exampleimplementation/data_access/db_local/DbMovies.kt,b\4\b4354ec34bd0d38a0560b818be4a0546d6d1837d
 ‘

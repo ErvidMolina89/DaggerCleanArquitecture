@@ -4,8 +4,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.mobile.exampleimplementation.entities.NewMovie
 import com.example.mobile.exampleimplementation.use_case.movies.GetApiListMoviesUseCase
+import javax.inject.Inject
 
-class ViewModelMovie (private val getApiListMoviesUseCase: GetApiListMoviesUseCase) : ViewModel() {
+class ViewModelMovie (@JvmField @Inject var getApiListMoviesUseCase: GetApiListMoviesUseCase) : ViewModel() {
 
     var listMovies: MutableLiveData<MutableList<NewMovie>> = MutableLiveData()
 
